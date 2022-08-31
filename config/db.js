@@ -2,9 +2,7 @@ const mongoose = require("mongoose");
 
 mongoose
   .connect(
-    "mongodb+srv://" +
-      process.env.DB_PASS +
-      "@cluster0.nu24oss.mongodb.net/cartissimo",
+    process.env.MONGODB_URI,
 
     {
       useNewUrlParser: true,
