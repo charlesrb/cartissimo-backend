@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
 const path = require("path");
-const nbaRoutes = require("./routes/nba.route");
+const sportsRoutes = require("./routes/sports.route");
 const userRoutes = require("./routes/user.route");
 
 require("dotenv").config({ path: "./config/.env" });
@@ -28,5 +28,5 @@ app.listen(process.env.PORT, () => {
   console.log("Listening on port 3000");
 });
 
-app.use("/api/nba", nbaRoutes);
+app.use("/api/sports", sportsRoutes);
 app.use("/api/user", userRoutes);
