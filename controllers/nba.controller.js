@@ -1,4 +1,4 @@
-const Nba = require("../models/Nba.model");
+const Nba = require("../models/nba.model");
 
 const getNbas = (req, res) => {
   Nba.find({})
