@@ -2,16 +2,16 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  getSportss,
   getSports,
+  getSport,
   createSports,
   updateSports,
   deleteSports,
 } = require("../controllers/sports.controller");
 
-router.get("/", getSportss);
+router.get("/", getSports);
 
-router.get("/:SportsID", getSports);
+router.get("/:SportsID", getSport);
 
 router.post("/", createSports);
 

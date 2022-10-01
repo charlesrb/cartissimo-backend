@@ -1,12 +1,12 @@
 const Sports = require("../models/sports.model");
 
-const getSportss = (req, res) => {
+const getSports = (req, res) => {
   Sports.find({})
     .then((result) => res.status(200).json({ result }))
     .catch((error) => res.status(500).json({ msg: error }));
 };
 
-const getSports = (req, res) => {
+const getSport = (req, res) => {
   Sports.findOne({ _id: req.params.SportsID })
     .then((result) => res.status(200).json({ result }))
     .catch(() => res.status(404).json({ msg: "Sports not found" }));
@@ -34,8 +34,8 @@ const deleteSports = (req, res) => {
 };
 
 module.exports = {
-  getSportss,
   getSports,
+  getSport,
   createSports,
   updateSports,
   deleteSports,
