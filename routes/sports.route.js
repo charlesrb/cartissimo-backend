@@ -4,12 +4,15 @@ const router = express.Router();
 const {
   getSports,
   getSport,
+  getManySports,
   createSports,
   updateSports,
   deleteSports,
 } = require("../controllers/sports.controller");
 
 router.get("/", getSports);
+
+router.get("/:search", getManySports);
 
 router.get("/:SportsID", getSport);
 

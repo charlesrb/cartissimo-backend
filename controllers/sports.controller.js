@@ -6,6 +6,29 @@ const getSports = (req, res) => {
     .catch((error) => res.status(500).json({ msg: error }));
 };
 
+const getManySports = async (req, res) => {
+  try {
+    const data = await Sports.find({});
+
+    let sports = [];
+    for (const sport of data) {
+      for (const equipe of sport.teams) {
+        if (equipe.toLowerCase().includes(req.params.search.toLowerCase())) {
+          sports.push(sport.name + " - " + equipe);
+        }
+      }
+      for (const joueur of sport.players) {
+        if (joueur.toLowerCase().includes(req.params.search.toLowerCase())) {
+          sports.push(sport.name + " - " + joueur);
+        }
+      }
+    }
+    res.json(sports);
+  } catch (error) {
+    res.status(404).json({ err: 1, message: error.message, error });
+  }
+};
+
 const getSport = (req, res) => {
   Sports.findOne({ _id: req.params.SportsID })
     .then((result) => res.status(200).json({ result }))
@@ -35,6 +58,7 @@ const deleteSports = (req, res) => {
 
 module.exports = {
   getSports,
+  getManySports,
   getSport,
   createSports,
   updateSports,

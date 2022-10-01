@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   sport: { type: [String] },
-  equipeNba: { type: [String] },
-  equipeNfl: { type: [String] },
-  equipeNhl: { type: [String] },
-  equipeMlb: { type: [String] },
-  equipeSoccer: { type: [String] },
+  NBA: { type: [String] },
+  NFL: { type: [String] },
+  NHL: { type: [String] },
+  MLB: { type: [String] },
+  SOCCER: { type: [String] },
   joueur: { type: Array },
   collec: { type: String },
   premiereCarte: { type: String },
