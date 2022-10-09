@@ -1,4 +1,6 @@
 const User = require("../models/user.model");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const getUsers = (req, res) => {
   User.find({})
@@ -12,10 +14,16 @@ const getUser = (req, res) => {
     .catch(() => res.status(404).json({ msg: "User not found" }));
 };
 
-const createUser = (req, res) => {
-  User.create(req.body)
+const createUser = async (req, res) => {
+  const { mail, pseudo } = req.body;
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+  User.create({
+    mail,
+    pseudo,
+    password: hashedPassword,
+  })
     .then((result) => {
-      console.log(req.body);
       res.status(200).json({ result });
     })
     .catch((error) => res.status(500).json({ msg: error }));
