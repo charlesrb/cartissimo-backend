@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   getSports,
   getSport,
+  getManyTeams,
   getManySports,
   createSports,
   updateSports,
@@ -13,6 +14,8 @@ const {
 router.get("/", getSports);
 
 router.get("/:search", getManySports);
+
+router.get("/:league/:search", getManyTeams);
 
 router.get("/:SportsID", getSport);
 

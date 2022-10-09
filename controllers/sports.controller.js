@@ -29,6 +29,24 @@ const getManySports = async (req, res) => {
   }
 };
 
+const getManyTeams = async (req, res) => {
+  try {
+    const data = await Sports.findOne({ name: req.params.league });
+
+    let sports = [];
+    for (const equipe of data.teams) {
+      if (equipe.toLowerCase().includes(req.params.search.toLowerCase())) {
+        sports.push(equipe);
+      }
+    }
+    console.log(sports);
+
+    res.json(sports);
+  } catch (error) {
+    res.status(404).json({ err: 1, message: error.message, error });
+  }
+};
+
 const getSport = (req, res) => {
   Sports.findOne({ _id: req.params.SportsID })
     .then((result) => res.status(200).json({ result }))
@@ -58,6 +76,7 @@ const deleteSports = (req, res) => {
 
 module.exports = {
   getSports,
+  getManyTeams,
   getManySports,
   getSport,
   createSports,
