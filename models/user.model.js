@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
+  password: { type: String },
   sport: { type: [String] },
   NBA: { type: [String] },
   NFL: { type: [String] },
