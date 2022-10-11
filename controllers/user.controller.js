@@ -29,6 +29,28 @@ const createUser = async (req, res) => {
     .catch((error) => res.status(500).json({ msg: error }));
 };
 
+const login = async (req, res) => {
+  const { mail, password } = req.body;
+
+  const user = await User.findOne({ mail: mail }).exec();
+  if (!user) {
+    return res.status(400).json({ error: "Pas d'utilisateur" });
+  }
+
+  const isValid = bcrypt.compare(password, user.password);
+  if (!isValid) {
+    return res.status(400).json({ error: "mauvais password" });
+  } else {
+    res.status(200).json({
+      userId: user._id,
+      token: jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET, {
+        expiresIn: "24h",
+      }),
+    });
+    console.log("UserId", user.id, "Connected");
+  }
+};
+
 const updateUser = (req, res) => {
   User.findOneAndUpdate({ _id: req.params.UserID }, req.body, {
     new: true,
@@ -46,6 +68,7 @@ const deleteUser = (req, res) => {
 
 module.exports = {
   getUsers,
+  login,
   getUser,
   createUser,
   updateUser,
