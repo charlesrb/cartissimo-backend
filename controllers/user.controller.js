@@ -34,12 +34,13 @@ const login = async (req, res) => {
 
   const user = await User.findOne({ mail: mail }).exec();
   if (!user) {
-    return res.status(400).json({ error: "Pas d'utilisateur" });
+    return res.status(400).json({ error: "Cet utilisateur n'existe pas" });
   }
 
-  const isValid = bcrypt.compare(password, user.password);
+  const isValid = await bcrypt.compare(password, user.password);
+  console.log(isValid);
   if (!isValid) {
-    return res.status(400).json({ error: "mauvais password" });
+    return res.status(400).json({ error: "Mot de passe incorrect" });
   } else {
     res.status(200).json({
       userId: user._id,
@@ -57,7 +58,7 @@ const updateUser = (req, res) => {
     runValidators: true,
   })
     .then((result) => res.status(200).json({ result }))
-    .catch((error) => res.status(404).json({ msg: "User not found" }));
+    .catch(() => res.status(404).json({ msg: "User not found" }));
 };
 
 const deleteUser = (req, res) => {

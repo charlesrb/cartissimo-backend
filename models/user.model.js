@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
   twitter: { type: String, default: "non" },
   instagram: { type: String, default: "non" },
   contact: { type: String },
-  mail: { type: String },
+  mail: { type: String, unique: true },
 });
 
 module.exports = mongoose.model("User", userSchema);
